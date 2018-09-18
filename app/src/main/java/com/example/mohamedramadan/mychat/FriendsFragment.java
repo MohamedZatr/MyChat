@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -79,6 +80,12 @@ public class FriendsFragment extends Fragment {
                             String user_image = dataSnapshot.child("user_thumb_image").getValue().toString();
                             holder.setName(user_name);
                             holder.setImage(user_image);
+
+                            if (dataSnapshot.hasChild("online"))
+                            {
+                                Boolean setUserOnline= (Boolean) dataSnapshot.child("online").getValue();
+                                holder.setUserOnline(setUserOnline);
+                            }
                         }
 
                         @Override

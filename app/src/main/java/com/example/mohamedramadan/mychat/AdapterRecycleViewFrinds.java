@@ -40,6 +40,14 @@ public class AdapterRecycleViewFrinds extends RecyclerView.ViewHolder {
                         .placeholder(R.drawable.imageuser1).into(imageView);
             }
         });
+
+    }
+
+    public void setUserOnline(Boolean online)
+    {
+        ImageView imageView = view.findViewById(R.id.online);
+        if (online)
+        imageView.setVisibility(View.VISIBLE);
     }
 
 }

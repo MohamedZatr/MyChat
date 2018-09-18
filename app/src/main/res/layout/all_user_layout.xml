@@ -1,54 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:id="@+id/root"
+    android:orientation="vertical">
 
-    >
-<android.support.v7.widget.CardView
-    android:layout_width="match_parent"
-    android:layout_height="120dp"
-    android:orientation="horizontal"
-    android:layout_margin="8dp"
-    android:layout_gravity="center"
-    >
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/all_user_image"
-        android:layout_width="85dp"
-        android:layout_height="85dp"
-        android:layout_marginLeft="8dp"
-        android:src="@drawable/imageuser1"
-        android:layout_gravity="center_vertical"
-        />
-    <LinearLayout
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_margin="15dp"
-        android:gravity="center"
+        android:layout_height="120dp"
         android:layout_gravity="center"
-        android:paddingLeft="20dp"
-        >
-        <TextView
+        android:layout_margin="8dp"
+        android:orientation="horizontal">
+
+        <RelativeLayout
             android:layout_width="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_height="wrap_content">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/all_user_image"
+                android:layout_width="85dp"
+                android:layout_height="85dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="8dp"
+                android:src="@drawable/imageuser1" />
+                <ImageView
+                    android:id="@+id/online"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/online"
+                    android:layout_marginTop="55dp"
+                    android:layout_marginLeft="60dp"
+                    android:visibility="gone"
+                    />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/all_user_name"
-            android:text="Mohamed Ramadan"
-            android:textColor="#000"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/all_user_state"
-            android:textSize="15sp"
-            android:textColor="#000"
-            android:text="Hello Every one"
-            />
-    </LinearLayout>
-</android.support.v7.widget.CardView>
+            android:layout_gravity="center"
+            android:layout_margin="15dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingLeft="20dp">
+
+            <TextView
+                android:id="@+id/all_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mohamed Ramadan"
+                android:textColor="#000"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/all_user_state"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hello Every one"
+                android:textColor="#000"
+                android:textSize="15sp" />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
 
 </RelativeLayout>
