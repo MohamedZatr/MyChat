@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:paddingBottom="50dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.mohamedramadan.mychat.StartPageActivity"
+    >
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <ImageView
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:src="@drawable/startpage"
+       android:layout_centerHorizontal="true"
+       android:layout_margin="50dp"
+       android:layout_marginBottom="32dp"
+       android:id="@+id/image"
+       />
+    <Button
+        style="@style/buttonstyle"
+        android:layout_below="@+id/image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:text="Login"
+        android:id="@+id/login"
+        android:onClick="login"
+       />
+    <Button
+        style="@style/buttonstyle"
+        android:layout_marginTop="16dp"
+        android:layout_below="@id/login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Register"
+        android:onClick="register"
+        />
+
+</RelativeLayout>
+    </ScrollView>
