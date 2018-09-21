@@ -30,8 +30,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/online"
-                    android:layout_marginTop="55dp"
-                    android:layout_marginLeft="60dp"
+                    android:layout_marginTop="65dp"
+                    android:layout_marginLeft="65dp"
                     android:visibility="gone"
                     />
         </RelativeLayout>

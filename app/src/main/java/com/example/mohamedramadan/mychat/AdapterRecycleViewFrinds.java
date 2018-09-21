@@ -43,10 +43,10 @@ public class AdapterRecycleViewFrinds extends RecyclerView.ViewHolder {
 
     }
 
-    public void setUserOnline(Boolean online)
+    public void setUserOnline(String online)
     {
         ImageView imageView = view.findViewById(R.id.online);
-        if (online)
+        if (online.equals("true"))
         imageView.setVisibility(View.VISIBLE);
     }
 

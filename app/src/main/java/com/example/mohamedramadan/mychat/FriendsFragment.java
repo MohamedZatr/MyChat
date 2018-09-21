@@ -1,7 +1,9 @@
 package com.example.mohamedramadan.mychat;
 
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,12 +16,14 @@ import android.widget.ImageView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 
 
@@ -33,7 +37,7 @@ public class FriendsFragment extends Fragment {
     String online_user_id;
     DatabaseReference reference;
     private View view;
-    FirebaseRecyclerAdapter<Friends,AdapterRecycleViewFrinds> recyclerAdapter;
+    FirebaseRecyclerAdapter<Friends, AdapterRecycleViewFrinds> recyclerAdapter;
     FirebaseRecyclerOptions<Friends> firebaseRecyclerOptions;
     private int pos = 0;
 
@@ -52,8 +56,7 @@ public class FriendsFragment extends Fragment {
         friends_Reference = FirebaseDatabase.getInstance().getReference().child("Friends").child(online_user_id);
         reference.keepSynced(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        if (savedInstanceState != null)
-        {
+        if (savedInstanceState != null) {
             pos = savedInstanceState.getInt("pos");
         }
         // Inflate the layout for this fragment
@@ -71,43 +74,80 @@ public class FriendsFragment extends Fragment {
         recyclerAdapter = new FirebaseRecyclerAdapter<Friends, AdapterRecycleViewFrinds>(firebaseRecyclerOptions) {
             @Override
             protected void onBindViewHolder(final AdapterRecycleViewFrinds holder, final int position, Friends model) {
-                    holder.setDate(model.getDate());
-                    final String list_user_id = getRef(position).getKey();
-                    reference.child(list_user_id).addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            String user_name = dataSnapshot.child("user_name").getValue().toString();
-                            String user_image = dataSnapshot.child("user_thumb_image").getValue().toString();
-                            holder.setName(user_name);
-                            holder.setImage(user_image);
+                holder.setDate(model.getDate());
+                final String list_user_id = getRef(position).getKey();
+                reference.child(list_user_id).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(final DataSnapshot dataSnapshot) {
+                        final String user_name = dataSnapshot.child("user_name").getValue().toString();
+                        final String user_image = dataSnapshot.child("user_thumb_image").getValue().toString();
+                        holder.setName(user_name);
+                        holder.setImage(user_image);
 
-                            if (dataSnapshot.hasChild("online"))
-                            {
-                                Boolean setUserOnline= (Boolean) dataSnapshot.child("online").getValue();
-                                holder.setUserOnline(setUserOnline);
+
+                        if (dataSnapshot.hasChild("online")) {
+                            String setUserOnline = dataSnapshot.child("online").getValue().toString();
+                            holder.setUserOnline(setUserOnline);
+                        }
+
+                        holder.view.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                pos = position;
+                                CharSequence options[] = new CharSequence[]
+                                        {
+                                                user_name + "'s Profile", "Send Message"
+                                        };
+                                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                                builder.setTitle("Select Options");
+                                builder.setItems(options, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int position) {
+
+                                        if (position == 0) {
+                                            Intent intent = new Intent(getContext(), ProfileActivity.class);
+                                            intent.putExtra("user_id", list_user_id);
+                                            startActivity(intent);
+                                        }
+
+                                        if (position == 1) {
+                                            if (dataSnapshot.child("online").exists()) {
+                                                Intent intent = new Intent(getContext(), ChatActivity.class);
+                                                intent.putExtra("user_id", list_user_id);
+                                                intent.putExtra("user_name", user_name);
+                                                startActivity(intent);
+                                            } else {
+                                                reference.child(list_user_id).child("online")
+                                                        .setValue(ServerValue.TIMESTAMP).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
+
+                                                        Intent intent = new Intent(getContext(), ChatActivity.class);
+                                                        intent.putExtra("user_id", list_user_id);
+                                                        intent.putExtra("user_name", user_name);
+                                                        startActivity(intent);
+                                                    }
+                                                });
+                                            }
+                                        }
+                                    }
+                                });
+                                builder.show();
                             }
-                        }
+                        });
+                    }
 
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
 
-                        }
-                    });
-                    holder.view.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            pos = position;
-                            Intent intent = new Intent(getContext(),ProfileActivity.class);
-                            intent.putExtra("user_id",list_user_id);
-                            startActivity(intent);
-                        }
-                    });
+                    }
+                });
 
             }
 
             @Override
             public AdapterRecycleViewFrinds onCreateViewHolder(ViewGroup parent, int viewType) {
-                View view = getLayoutInflater().inflate(R.layout.all_user_layout,parent,false);
+                View view = getLayoutInflater().inflate(R.layout.all_user_layout, parent, false);
 
                 return new AdapterRecycleViewFrinds(view);
             }
@@ -118,6 +158,6 @@ public class FriendsFragment extends Fragment {
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        outState.putInt("pos",pos);
+        outState.putInt("pos", pos);
     }
 }
