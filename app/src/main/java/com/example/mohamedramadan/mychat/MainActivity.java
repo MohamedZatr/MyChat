@@ -65,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if (currntUser != null)
                     reference.child(currntUser.getUid().toString()).child("online").setValue("true");
-                    Toast.makeText(MainActivity.this, "Called", Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
