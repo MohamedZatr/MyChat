@@ -40,7 +40,7 @@ public class Offline extends Application {
             reference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    //reference.child("online").onDisconnect().setValue(ServerValue.TIMESTAMP);
+                    reference.child("online").onDisconnect().setValue(ServerValue.TIMESTAMP);
                 }
 
                 @Override

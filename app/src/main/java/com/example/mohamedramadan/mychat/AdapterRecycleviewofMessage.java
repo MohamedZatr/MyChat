@@ -1,5 +1,6 @@
 package com.example.mohamedramadan.mychat;
 
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,6 +44,7 @@ public class AdapterRecycleviewofMessage extends RecyclerView.Adapter<RecyclerVi
         else {
             ReciverHolder reciverHolder = (ReciverHolder) holder;
             reciverHolder.textView.setText(message.getMessage());
+
         }
     }
 

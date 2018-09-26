@@ -23,5 +23,7 @@
         android:textColor="#fff"
         android:background="@drawable/background_message_sender"
         android:id="@+id/text_message"
+        android:maxWidth="300dp"
+
         />
 </LinearLayout>

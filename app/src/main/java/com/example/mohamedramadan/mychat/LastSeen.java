@@ -40,7 +40,8 @@ public class LastSeen extends Application {
         {
             return "Yesterday";
         }else{
-            return diff / DAY_MILLES + "days ago";
+            int day = (int) ((diff / DAY_MILLES) + 1);
+            return day + " days ago";
         }
     }
 }

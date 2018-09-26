@@ -15,9 +15,13 @@ public class AdapterRecycleViewFrinds extends RecyclerView.ViewHolder {
         view = itemView;
     }
 
-    public void setDate(String date) {
-       TextView textView = view.findViewById(R.id.all_user_state);
-       textView.setText(date);
+    public void setDate(String state) {
+        TextView textView = view.findViewById(R.id.all_user_state);
+        textView.setText(state);
+    }
+    public void setState(String state) {
+        TextView textView = view.findViewById(R.id.all_user_state);
+        textView.setText(state);
     }
     public void setName(String name)
     {

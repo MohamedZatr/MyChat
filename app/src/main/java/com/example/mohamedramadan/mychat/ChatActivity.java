@@ -75,7 +75,6 @@ public class ChatActivity extends AppCompatActivity {
         sendImage = findViewById(R.id.select_image_send);
         writeMessage = findViewById(R.id.write_message);
 
-
         toolbar = findViewById(R.id.chat_bar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();

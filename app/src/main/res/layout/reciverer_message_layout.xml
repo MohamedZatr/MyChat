@@ -17,6 +17,7 @@
         android:text="helloo"
         android:textColor="#fff"
         android:textSize="20dp"
+        android:maxWidth="300dp"
         />
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/image_message"
