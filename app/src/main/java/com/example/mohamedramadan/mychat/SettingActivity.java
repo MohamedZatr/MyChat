@@ -88,7 +88,7 @@ public class SettingActivity extends AppCompatActivity {
                     progressBar.setVisibility(View.VISIBLE);
                     Picasso.get().load(user_thumb_image)
                             .networkPolicy(NetworkPolicy.OFFLINE)
-                            .placeholder(R.drawable.user_image)
+                            .placeholder(R.drawable.imageuser1)
                             .into(circleImageView, new Callback() {
                                 @Override
                                 public void onSuccess() {

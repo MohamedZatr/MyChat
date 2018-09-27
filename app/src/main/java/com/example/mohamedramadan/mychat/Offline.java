@@ -32,7 +32,12 @@ public class Offline extends Application {
 
         firebaseAuth = FirebaseAuth.getInstance();
         currentuser = firebaseAuth.getCurrentUser();
-        if (currentuser != null)
+        String online_user_id = firebaseAuth.getCurrentUser().getUid();
+        reference = FirebaseDatabase.getInstance().getReference()
+                .child("Users").child(online_user_id);
+        reference.child("online").onDisconnect().setValue(ServerValue.TIMESTAMP);
+
+        /*if (currentuser != null)
         {
             String online_user_id = firebaseAuth.getCurrentUser().getUid();
             reference = FirebaseDatabase.getInstance().getReference()
@@ -40,7 +45,9 @@ public class Offline extends Application {
             reference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    reference.child("online").onDisconnect().setValue(ServerValue.TIMESTAMP);
+                    String s = ServerValue.TIMESTAMP.toString();
+
+                    currentuser = null;
                 }
 
                 @Override
@@ -49,7 +56,7 @@ public class Offline extends Application {
                 }
             });
 
-        }
+        }*/
 
     }
 }

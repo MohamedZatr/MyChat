@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if (currntUser != null)
-                    reference.child(currntUser.getUid().toString()).child("online").setValue("true");
+                    reference.child(currntUser.getUid().toString()).child("online").onDisconnect().setValue("true");
                 }
 
                 @Override
@@ -104,8 +104,7 @@ public class MainActivity extends AppCompatActivity {
                 if (currntUser != null) {
                     reference.child(currntUser.getUid().toString()).child("online").setValue(ServerValue.TIMESTAMP);
                 }
-                firebaseAuth.signOut();
-                currntUser = null;
+                FirebaseAuth.getInstance().signOut();
                 logout();
                 return true;
             case R.id.all_user:

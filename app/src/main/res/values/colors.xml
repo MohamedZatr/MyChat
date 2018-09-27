@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#1A237E</color>
+    <color name="colorPrimaryDark">#002884</color>
     <color name="colorAccent">#ff4401</color>
     <color name="colortext">#fff</color>
     <color name="select">#67647d</color>
@@ -10,4 +10,5 @@
     <color name="edite_text_background">#ff4401</color>
     <color name="hint_color">#000</color>
     <color name="backgroundofprofile">#313335</color>
+    <color name="background_fragment">#9fa0a0</color>
 </resources>

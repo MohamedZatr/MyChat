@@ -38,7 +38,7 @@ public class AdapterRecyclerViiew extends RecyclerView.ViewHolder {
         final CircleImageView imageView = view.findViewById(R.id.all_user_image);
         Picasso.get().load(user_thumb_image)
                 .networkPolicy(NetworkPolicy.OFFLINE)
-                .placeholder(R.drawable.user_image)
+                .placeholder(R.drawable.imageuser1)
                 .into(imageView, new Callback() {
                     @Override
                     public void onSuccess() {
@@ -47,7 +47,7 @@ public class AdapterRecyclerViiew extends RecyclerView.ViewHolder {
 
                     @Override
                     public void onError(Exception e) {
-                        Picasso.get().load(user_thumb_image).placeholder(R.drawable.user_image).into(imageView);
+                        Picasso.get().load(user_thumb_image).placeholder(R.drawable.imageuser1).into(imageView);
                     }
                 });
 

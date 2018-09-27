@@ -35,7 +35,8 @@ public class AdapterRecycleViewFrinds extends RecyclerView.ViewHolder {
                 .placeholder(R.drawable.imageuser1).into(imageView, new Callback() {
             @Override
             public void onSuccess() {
-
+                if (!urlImage.equals(null))
+                imageView.setPadding(8,8,8,8);
             }
 
             @Override
@@ -53,5 +54,6 @@ public class AdapterRecycleViewFrinds extends RecyclerView.ViewHolder {
         if (online.equals("true"))
         imageView.setVisibility(View.VISIBLE);
     }
+
 
 }

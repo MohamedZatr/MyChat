@@ -30,9 +30,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/online"
-                    android:layout_marginTop="65dp"
-                    android:layout_marginLeft="65dp"
+                    android:layout_marginTop="67dp"
+                    android:layout_marginLeft="68dp"
                     android:visibility="gone"
+                    android:scaleType="fitEnd"
+                    android:adjustViewBounds="true"
                     />
         </RelativeLayout>
 
@@ -58,7 +60,7 @@
                 android:id="@+id/all_user_state"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Hello Every one"
+                android:text=""
                 android:textColor="#000"
                 android:textSize="15sp" />
         </LinearLayout>
