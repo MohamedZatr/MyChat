@@ -9,35 +9,24 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.MultiAutoCompleteTextView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
-import com.firebase.ui.database.FirebaseListAdapter;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.FirebaseOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
-import java.net.URL;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -50,7 +39,7 @@ public class ChatActivity extends AppCompatActivity {
     private android.support.v7.widget.Toolbar toolbar;
     private TextView username, lastseen;
     private CircleImageView circleImageuser;
-    private DatabaseReference reference, messageReference;
+    private DatabaseReference reference, messageReference,friendReference;
     private ImageButton sendMessage, sendImage;
     private MultiAutoCompleteTextView writeMessage;
     private FirebaseAuth firebaseAuth ;
@@ -70,7 +59,7 @@ public class ChatActivity extends AppCompatActivity {
         message_sender_id =  firebaseAuth.getCurrentUser().getUid().toString();
         user_reciver_id = intent.getStringExtra("user_id");
         user_reciver_name = intent.getStringExtra("user_name");
-
+        friendReference = FirebaseDatabase.getInstance().getReference().child("Friends");
         sendMessage = findViewById(R.id.send_message);
         sendImage = findViewById(R.id.select_image_send);
         writeMessage = findViewById(R.id.write_message);
@@ -89,7 +78,6 @@ public class ChatActivity extends AppCompatActivity {
         user_message_list = findViewById(R.id.message_list);
         linearLayoutManager = new LinearLayoutManager(this);
         user_message_list.setLayoutManager(linearLayoutManager);
-
         username.setText(user_reciver_name);
         reference.child("Users").child(user_reciver_id).addValueEventListener(new ValueEventListener() {
             @Override
@@ -186,13 +174,20 @@ public class ChatActivity extends AppCompatActivity {
 
     }
     private void fetchMessage() {
+
         messageReference.child("Message").child(message_sender_id).child(user_reciver_id)
                 .addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                        Message message = dataSnapshot.getValue(Message.class);
+                        final Message message = dataSnapshot.getValue(Message.class);
                         messages.add(message);
                         adapter.notifyDataSetChanged();
+                        friendReference.child(message_sender_id).child(user_reciver_id).child("lasttime").setValue(message.getTime()).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                friendReference.child(user_reciver_id).child(message_sender_id).child("lasttime").setValue(message.getTime());
+                            }
+                        });
 
 
                         /*if (linearLayoutManager.findLastVisibleItemPosition()!=-1)
@@ -222,8 +217,6 @@ public class ChatActivity extends AppCompatActivity {
 
                     }
                 });
-
-
     }
 
 

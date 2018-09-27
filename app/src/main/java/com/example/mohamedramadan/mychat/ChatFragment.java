@@ -62,7 +62,7 @@ public class ChatFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        final Query query = FriendReference.limitToLast(50);
+        final Query query = FriendReference.orderByChild("lasttime").limitToLast(50);
         FirebaseRecyclerOptions<Chat> options = new FirebaseRecyclerOptions.Builder<Chat>()
                 .setLifecycleOwner(getActivity())
                 .setQuery(query, Chat.class)
@@ -112,10 +112,6 @@ public class ChatFragment extends Fragment {
 
                             }
                         });
-
-
-
-
                         /////////////////////////////////////////////
                         holder.view.setOnClickListener(new View.OnClickListener() {
                             @Override

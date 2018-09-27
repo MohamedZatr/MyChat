@@ -17,6 +17,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
@@ -206,9 +207,11 @@ public class ProfileActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful())
                 {
+                    acceptreference.child(user_id).child(reciver_user_id).child("lasttime").setValue(ServerValue.TIMESTAMP);
                     acceptreference.child(reciver_user_id).child(user_id).child("date").setValue(CURRENT_DATA).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
+                            acceptreference.child(reciver_user_id).child(user_id).child("lasttime").setValue(ServerValue.TIMESTAMP);
                                 cancelFreindRequestToPerson("UnFriend","Friends");
                                 declin_request_button.setVisibility(View.GONE);
                         }

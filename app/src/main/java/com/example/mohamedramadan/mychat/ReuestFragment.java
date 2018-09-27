@@ -23,6 +23,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
@@ -105,9 +106,11 @@ public class ReuestFragment extends Fragment {
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if (task.isSuccessful())
                                         {
+                                            friendReference.child(cuurnt_user_id).child(user_id).child("lasttime").setValue(ServerValue.TIMESTAMP);
                                             friendReference.child(user_id).child(cuurnt_user_id).child("date").setValue(CURRENT_DATA).addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
                                                 public void onSuccess(Void aVoid) {
+                                                    friendReference.child(user_id).child(cuurnt_user_id).child("lasttime").setValue(ServerValue.TIMESTAMP);
                                                     declinerequest(user_id);
 
                                                 }
